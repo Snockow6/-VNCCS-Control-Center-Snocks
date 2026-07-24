@@ -837,9 +837,9 @@ async def vnccs_get_preview(request):
 
 
 NODE_CLASS_MAPPINGS = {
-    "ClothesDesigner": ClothesDesigner,
+    "ClothesDesigner_Edited": ClothesDesigner,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "ClothesDesigner": "VNCCS Clothes Designer",
+    "ClothesDesigner_Edited": "VNCCS Clothes Designer (Edited)",
 }

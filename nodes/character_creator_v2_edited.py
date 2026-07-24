@@ -1473,9 +1473,9 @@ class CharacterCreatorV2:
 
 
 NODE_CLASS_MAPPINGS = {
-    "CharacterCreatorV2": CharacterCreatorV2,
+    "CharacterCreatorV2_Edited": CharacterCreatorV2,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "CharacterCreatorV2": "VNCCS Character Creator V2",
+    "CharacterCreatorV2_Edited": "VNCCS Character Creator V2 (Edited)",
 }
