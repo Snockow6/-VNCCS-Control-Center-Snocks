@@ -567,7 +567,7 @@ app.registerExtension({
     async setup() {
         const origQueuePrompt = app.queuePrompt.bind(app);
         app.queuePrompt = async function(...args) {
-            const nodes = app.graph?._nodes?.filter(n => n.type === "ClothesDesigner") || [];
+            const nodes = app.graph?._nodes?.filter(n => n.type === "ClothesDesigner" || n.type === "ClothesDesigner_Edited") || [];
             for (const node of nodes) {
                 node._randomizeSeedIfNeeded?.();
             }
@@ -576,7 +576,7 @@ app.registerExtension({
     },
 
     async beforeRegisterNodeDef(nodeType, nodeData) {
-        if (nodeData.name === "ClothesDesigner") {
+        if (nodeData.name === "ClothesDesigner" || nodeData.name === "ClothesDesigner_Edited") {
             const onNodeCreated = nodeType.prototype.onNodeCreated;
             nodeType.prototype.onNodeCreated = function () {
                 if (onNodeCreated) onNodeCreated.apply(this, arguments);
@@ -1037,7 +1037,7 @@ app.registerExtension({
 
                     sync.findClothesDesignerSourceNode = () => {
                         const nodes = app.graph?._nodes || [];
-                        return nodes.find(n => n?.type === "ClothesDesigner") || null;
+                        return nodes.find(n => n?.type === "ClothesDesigner" || n?.type === "ClothesDesigner_Edited") || null;
                     };
                     sync.findSourceNode = function () {
                         return originalFindSourceNode?.() || this.findClothesDesignerSourceNode?.() || null;
@@ -1057,7 +1057,7 @@ app.registerExtension({
                         return applied;
                     };
                     sync.hookClothesDesignerNode = function (sourceNode) {
-                        if (!sourceNode || sourceNode.type !== "ClothesDesigner") return;
+                        if (!sourceNode || (sourceNode.type !== "ClothesDesigner" && sourceNode.type !== "ClothesDesigner_Edited")) return;
                         const sourceWidget = sourceNode.widgets?.find(w => w.name === "widget_data");
                         let didHook = false;
                         if (sourceWidget && !sourceWidget._vnccsPoseStudioClothesDesignerValueHooked) {
