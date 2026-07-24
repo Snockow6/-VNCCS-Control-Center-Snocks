@@ -1,0 +1,292 @@
+{
+  "name": "VNCCS Core Models",
+  "models": [
+    {
+      "name": "Qwen-Image-Edit-2511-GGUF-Q4",
+      "type": "gguf",
+      "hf_repo": "unsloth/Qwen-Image-Edit-2511-GGUF",
+      "hf_path": "qwen-image-edit-2511-Q4_0.gguf",
+      "local_path": "models/unet/qwen-image-edit-2511-Q4_0.gguf",
+      "version": "1.0",
+      "description": "Quantized Q4 GGUF \u2014 lower VRAM, slightly lower quality.",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "Qwen-Image-Edit-2511-GGUF-Q2",
+      "type": "gguf",
+      "hf_repo": "unsloth/Qwen-Image-Edit-2511-GGUF",
+      "hf_path": "qwen-image-edit-2511-Q2_K.gguf",
+      "local_path": "models/unet/qwen-image-edit-2511-Q2_K.gguf",
+      "version": "1.0",
+      "description": "Quantized Q2_K GGUF - lowest VRAM, lowest quality. ~7.5 GB.",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "Qwen-Image-Edit-2511-GGUF-Q3-KS",
+      "type": "gguf",
+      "hf_repo": "unsloth/Qwen-Image-Edit-2511-GGUF",
+      "hf_path": "qwen-image-edit-2511-Q3_K_S.gguf",
+      "local_path": "models/unet/qwen-image-edit-2511-Q3_K_S.gguf",
+      "version": "1.0",
+      "description": "Quantized Q3_K_S GGUF - very low VRAM, low quality. ~9.0 GB.",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "Qwen-Image-Edit-2511-GGUF-Q3-KM",
+      "type": "gguf",
+      "hf_repo": "unsloth/Qwen-Image-Edit-2511-GGUF",
+      "hf_path": "qwen-image-edit-2511-Q3_K_M.gguf",
+      "local_path": "models/unet/qwen-image-edit-2511-Q3_K_M.gguf",
+      "version": "1.0",
+      "description": "Quantized Q3_K_M GGUF - low VRAM, low-medium quality. ~9.7 GB.",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "Qwen-Image-Edit-2511-GGUF-Q3-KL",
+      "type": "gguf",
+      "hf_repo": "unsloth/Qwen-Image-Edit-2511-GGUF",
+      "hf_path": "qwen-image-edit-2511-Q3_K_L.gguf",
+      "local_path": "models/unet/qwen-image-edit-2511-Q3_K_L.gguf",
+      "version": "1.0",
+      "description": "Quantized Q3_K_L GGUF - low VRAM, medium quality. ~10.4 GB.",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "Qwen-Image-Edit-2511-GGUF-Q5",
+      "type": "gguf",
+      "hf_repo": "unsloth/Qwen-Image-Edit-2511-GGUF",
+      "hf_path": "qwen-image-edit-2511-Q5_0.gguf",
+      "local_path": "models/unet/qwen-image-edit-2511-Q5_0.gguf",
+      "version": "1.0",
+      "description": "Quantized Q5 GGUF \u2014 lower VRAM, slightly lower quality.",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "Qwen-Image-Edit-2511-GGUF-Q8",
+      "type": "gguf",
+      "hf_repo": "unsloth/Qwen-Image-Edit-2511-GGUF",
+      "hf_path": "qwen-image-edit-2511-Q8_0.gguf",
+      "local_path": "models/unet/qwen-image-edit-2511-Q8_0.gguf",
+      "version": "1.0",
+      "description": "Quantized Q8 GGUF \u2014 near-lossless, higher VRAM than Q4.",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "Qwen-Image-Edit-2511-NVFP4",
+      "type": "unet",
+      "hf_repo": "Bedovyy/Qwen-Image-Edit-2511-NVFP4",
+      "hf_path": "qwen_image_edit_2511_nvfp4.safetensors",
+      "local_path": "models/diffusion_models/qwen_image_edit_2511_nvfp4.safetensors",
+      "version": "1.0",
+      "description": "(NVIDIA 5xxx series ONLY) Native NVFP4 UNet \u2014 full quality at reduced VRAM.",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "Anima Base v1.0",
+      "type": "unet",
+      "kind": "Anima",
+      "hf_repo": "circlestone-labs/Anima",
+      "hf_path": "split_files/diffusion_models/anima-base-v1.0.safetensors",
+      "local_path": "models/diffusion_models/anima-base-v1.0.safetensors",
+      "version": "1.0",
+      "description": "Anima base diffusion model v1.0."
+    },
+    {
+      "name": "ILFlatMix",
+      "type": "checkpoint",
+      "kind": "Illustrious",
+      "hf_repo": "MIUProject/VNCCS_v3.0",
+      "hf_path": "models/checkpoints/Illustrious/ILFlatMix.safetensors",
+      "local_path": "models/checkpoints/Illustrious/ILFlatMix.safetensors",
+      "version": "1.0",
+      "description": "Illustrious checkpoint made for VNCCS. Flat style with good line quality and color consistency."
+    },
+    {
+      "name": "Newgrounds Mix v2.0",
+      "type": "checkpoint",
+      "kind": "Illustrious",
+      "hf_repo": "MIUProject/VNCCS_v3.0",
+      "hf_path": "models/checkpoints/Illustrious/newgroundsMix_v20.safetensors",
+      "local_path": "models/checkpoints/Illustrious/newgroundsMix_v20.safetensors",
+      "version": "1.0",
+      "description": "Newgrounds Mix v2.0 Illustrious checkpoint. Good variety of Niji styles."
+    },
+    {
+      "name": "WAI Illustrious SDXL v1.70",
+      "type": "checkpoint",
+      "kind": "Illustrious",
+      "hf_repo": "MIUProject/VNCCS_v3.0",
+      "hf_path": "models/checkpoints/Illustrious/waiIllustriousSDXL_v170.safetensors",
+      "local_path": "models/checkpoints/Illustrious/waiIllustriousSDXL_v170.safetensors",
+      "version": "1.0",
+      "description": "WAI Illustrious v1.70 checkpoint. Most stable model."
+    }
+  ],
+  "clip": [
+    {
+      "name": "Anima Qwen 3 0.6B Text Encoder",
+      "type": "TextEncoder",
+      "kind": "Anima",
+      "clip_type": "qwen_image",
+      "hf_repo": "circlestone-labs/Anima",
+      "hf_path": "split_files/text_encoders/qwen_3_06b_base.safetensors",
+      "local_path": "models/text_encoders/qwen_3_06b_base.safetensors",
+      "version": "1.0",
+      "description": "Text encoder for Anima v1.0."
+    },
+    {
+      "name": "QIE2511_Text_Encoder",
+      "clip_type": "qwen_image",
+      "hf_repo": "f5aiteam/CLIP",
+      "hf_path": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "local_path": "models/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "version": "1.0",
+      "description": "Qwen2.5-VL-7B FP8 scaled - 8.8 GB. Safetensors path via comfy.sd.load_clip.",
+      "type": "TextEncoder",
+      "kind": "QIE2511",
+      "format": "safetensors"
+    },
+    {
+      "name": "QIE2511_Text_Encoder_Q2_K",
+      "clip_type": "qwen_image",
+      "hf_repo": "unsloth/Qwen2.5-VL-7B-Instruct-GGUF",
+      "hf_path": "Qwen2.5-VL-7B-Instruct-Q2_K.gguf",
+      "local_path": "models/text_encoders/Qwen2.5-VL-7B-Instruct-Q2_K.gguf",
+      "version": "1.0",
+      "description": "Qwen2.5-VL-7B Q2_K GGUF - 3.02 GB. Loaded via ComfyUI-GGUF CLIPLoaderGGUF. Aggressive quantization.",
+      "type": "TextEncoder",
+      "kind": "QIE2511",
+      "format": "gguf"
+    },
+    {
+      "name": "QIE2511_Text_Encoder_Q4_K_M",
+      "clip_type": "qwen_image",
+      "hf_repo": "unsloth/Qwen2.5-VL-7B-Instruct-GGUF",
+      "hf_path": "Qwen2.5-VL-7B-Instruct-Q4_K_M.gguf",
+      "local_path": "models/text_encoders/Qwen2.5-VL-7B-Instruct-Q4_K_M.gguf",
+      "version": "1.0",
+      "description": "Qwen2.5-VL-7B Q4_K_M GGUF - 4.68 GB. Loaded via ComfyUI-GGUF CLIPLoaderGGUF.",
+      "type": "TextEncoder",
+      "kind": "QIE2511",
+      "format": "gguf"
+    },
+    {
+      "name": "QIE2511_Text_Encoder_Q8_0",
+      "clip_type": "qwen_image",
+      "hf_repo": "unsloth/Qwen2.5-VL-7B-Instruct-GGUF",
+      "hf_path": "Qwen2.5-VL-7B-Instruct-Q8_0.gguf",
+      "local_path": "models/text_encoders/Qwen2.5-VL-7B-Instruct-Q8_0.gguf",
+      "version": "1.0",
+      "description": "Qwen2.5-VL-7B Q8_0 GGUF - 8.10 GB. Loaded via ComfyUI-GGUF CLIPLoaderGGUF. Near lossless.",
+      "type": "TextEncoder",
+      "kind": "QIE2511",
+      "format": "gguf"
+    }
+  ],
+  "vae": [
+    {
+      "name": "QIE2511 VAE",
+      "hf_repo": "Comfy-Org/Qwen-Image_ComfyUI",
+      "hf_path": "split_files/vae/qwen_image_vae.safetensors",
+      "local_path": "models/vae/qwen_image_vae.safetensors",
+      "version": "1.0",
+      "description": "Official VAE for Qwen Image Edit 2511.",
+      "type": "VAE",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "Anima VAE",
+      "type": "VAE",
+      "kind": "Anima",
+      "hf_repo": "circlestone-labs/Anima",
+      "hf_path": "split_files/vae/qwen_image_vae.safetensors",
+      "local_path": "models/vae/qwen_image_vae.safetensors",
+      "version": "1.0",
+      "description": "VAE for Anima v1.0."
+    }
+  ],
+  "lora": [
+    {
+      "name": "VNCCS Clothes Core",
+      "hf_repo": "MIUProject/VNCCS_v3.0",
+      "hf_path": "models/loras/qwen/VNCCS/VNCCS_QIE2511_ClothesCore-RC3.5.safetensors",
+      "local_path": "models/loras/qwen/VNCCS/VNCCS_QIE2511_ClothesCore-RC3.5.safetensors",
+      "version": "0.3.5",
+      "description": "Helps maintain clothing consistency.",
+      "type": "Helper",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "VNCCS Emotion Core",
+      "hf_repo": "MIUProject/VNCCS_v3.0",
+      "hf_path": "models/loras/qwen/VNCCS/VNCCS_QIE2511_EmotionCore-RC1.safetensors",
+      "local_path": "models/loras/qwen/VNCCS/VNCCS_QIE2511_EmotionCore-RC1.safetensors",
+      "version": "0.1.0",
+      "description": "Core LoRA for generating character emotions.",
+      "type": "Helper",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "VNCCS Pose Studio QIE2511",
+      "hf_repo": "MIUProject/VNCCS_PoseStudio",
+      "hf_path": "models/loras/qwen/VNCCS/VNCCS_QIE2511_PoseStudio_ART_V5.9.5.safetensors",
+      "local_path": "models/loras/qwen/VNCCS/VNCCS_QIE2511_PoseStudio_ART_V5.9.5.safetensors",
+      "version": "5.9.5",
+      "description": "LoRA for VNCCS Pose Studio node.",
+      "type": "Helper",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "Qwen Image Edit 2511 Lightning",
+      "hf_repo": "MIUProject/VNCCS_v3.0",
+      "hf_path": "models/loras/qwen/Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+      "local_path": "models/loras/qwen/Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+      "version": "1.0.0",
+      "description": "4-Step Lightning LoRA for Qwen Image Edit.",
+      "type": "TurboLora",
+      "kind": "QIE2511"
+    },
+    {
+      "name": "DMD2 SDXL Lightning",
+      "hf_repo": "MIUProject/VNCCS_v3.0",
+      "hf_path": "models/loras/DMD2/dmd2_sdxl_4step_lora_fp16.safetensors",
+      "local_path": "models/loras/DMD2/dmd2_sdxl_4step_lora_fp16.safetensors",
+      "version": "1.0.0",
+      "description": "4-Step Lightning/Turbo LoRA for SDXL models.",
+      "type": "TurboLora",
+      "kind": "SDXL"
+    },
+    {
+      "name": "Anima Turbo LoRA",
+      "hf_repo": "MIUProject/VNCCS_v3.0",
+      "hf_path": "models/loras/Anima/anima-turbo-lora-v0.1.safetensors",
+      "local_path": "models/loras/Anima/anima-turbo-lora-v0.1.safetensors",
+      "version": "0.2.0",
+      "description": "12-Step Turbo LoRA for Anima model.",
+      "type": "TurboLora",
+      "kind": "Anima"
+    },
+    {
+      "name": "Mimimeter",
+      "hf_repo": "MIUProject/VNCCS_v3.0",
+      "hf_path": "models/loras/IL/mimimeter.safetensors",
+      "local_path": "models/loras/IL/mimimeter.safetensors",
+      "version": "1.0.0",
+      "description": "SDXL LoRA for age control.",
+      "type": "AgeSlider",
+      "kind": "SDXL"
+    }
+  ],
+  "other": [
+    {
+      "name": "4x_APISR_GRL_GAN",
+      "hf_repo": "MIUProject/VNCCS_v3.0",
+      "hf_path": "models/upscale_models/4x_APISR_GRL_GAN_generator.pth",
+      "local_path": "models/upscale_models/4x_APISR_GRL_GAN_generator.pth",
+      "version": "1.0.0",
+      "description": "4x Anime Production Inspired GRL GAN Super-Resolution.",
+      "type": "Upscaler",
+      "kind": "UTILITY"
+    }
+  ]
+}
