@@ -562,7 +562,7 @@ const STYLE = `
 `;
 
 app.registerExtension({
-    name: "VNCCS.ClothesDesigner",
+    name: "VNCCS.ClothesDesigner.Edited",
 
     async setup() {
         const origQueuePrompt = app.queuePrompt.bind(app);
