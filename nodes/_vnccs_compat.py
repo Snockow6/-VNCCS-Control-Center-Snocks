@@ -12,6 +12,10 @@ from types import SimpleNamespace
 import folder_paths
 
 
+_VNCCS_ROOT = None
+_PACKAGES_BOOTSTRAPPED = False
+
+
 def _find_vnccs_root():
     """Locate the original VNCCS package directory."""
     base = os.path.dirname(folder_paths.__file__)
@@ -28,9 +32,6 @@ def _find_vnccs_root():
     )
 
 
-_VNCCS_ROOT = None
-
-
 def get_vnccs_root():
     global _VNCCS_ROOT
     if _VNCCS_ROOT is None:
@@ -38,8 +39,49 @@ def get_vnccs_root():
     return _VNCCS_ROOT
 
 
+def _bootstrap_packages():
+    """Register vnccs, vnccs.nodes, vnccs.utils as packages in sys.modules
+    so relative imports inside VNCCS submodules resolve correctly."""
+    global _PACKAGES_BOOTSTRAPPED
+    if _PACKAGES_BOOTSTRAPPED:
+        return
+    _PACKAGES_BOOTSTRAPPED = True
+
+    root = get_vnccs_root()
+
+    # Register vnccs package
+    vnccs_pkg = types.ModuleType("vnccs")
+    vnccs_pkg.__path__ = [root]
+    vnccs_pkg.__package__ = "vnccs"
+    sys.modules.setdefault("vnccs", vnccs_pkg)
+
+    # Register vnccs.nodes package
+    nodes_pkg = types.ModuleType("vnccs.nodes")
+    nodes_pkg.__path__ = [os.path.join(root, "nodes")]
+    nodes_pkg.__package__ = "vnccs.nodes"
+    sys.modules.setdefault("vnccs.nodes", nodes_pkg)
+
+    # Load vnccs.utils (utils.py) and register as vnccs.utils
+    utils_path = os.path.join(root, "utils.py")
+    if os.path.exists(utils_path) and "vnccs.utils" not in sys.modules:
+        spec = _ilu.spec_from_file_location("vnccs.utils", utils_path)
+        if spec and spec.loader:
+            utils_mod = types.ModuleType("vnccs.utils")
+            utils_mod.__file__ = utils_path
+            utils_mod.__package__ = "vnccs"
+            sys.modules["vnccs.utils"] = utils_mod
+            spec.loader.exec_module(utils_mod)
+
+    # Also register as top-level "utils" so absolute imports like
+    # "from utils import get_full_path_agnostic" inside vnccs_utils.py
+    # find VNCCS's utils.py, not ComfyUI's utils/ package.
+    if "utils" not in sys.modules or getattr(sys.modules["utils"], "__file__", None) is None:
+        sys.modules["utils"] = sys.modules.get("vnccs.utils", sys.modules.get("utils"))
+
+
 def _load_module(name, relative_path):
-    """Load a single .py file from the VNCCS package without running __init__."""
+    """Load a single .py file from the VNCCS package with package context."""
+    _bootstrap_packages()
     root = get_vnccs_root()
     filepath = os.path.join(root, relative_path)
     spec = _ilu.spec_from_file_location(name, filepath,
@@ -47,23 +89,28 @@ def _load_module(name, relative_path):
     if spec is None or spec.loader is None:
         raise ImportError(f"Cannot load {filepath}")
     mod = _ilu.module_from_spec(spec)
-    mod.__package__ = "vnccs"
+    # nodes/*.py files belong to vnccs.nodes; top-level files belong to vnccs
+    if relative_path.startswith("nodes/"):
+        mod.__package__ = "vnccs.nodes"
+    else:
+        mod.__package__ = "vnccs"
     sys.modules[name] = mod
     spec.loader.exec_module(mod)
     return mod
 
 
 def load_utils():
-    return _load_module("_vnccs_utils_pkg", "utils.py")
+    _bootstrap_packages()
+    return sys.modules["vnccs.utils"]
 
 
 def load_vnccs_utils():
+    _bootstrap_packages()
     return _load_module("_vnccs_vnccs_utils_pkg", "nodes/vnccs_utils.py")
 
 
 def _call_comfy_node(class_name, **kwargs):
-    """Standalone version of character_generator._call_comfy_node.
-    Looks up a ComfyUI node by class name and calls its FUNCTION."""
+    """Standalone version of character_generator._call_comfy_node."""
     import nodes as comfy_nodes
 
     vnccs_node_id = kwargs.pop("_vnccs_node_id", None)
