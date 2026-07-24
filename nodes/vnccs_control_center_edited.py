@@ -26,19 +26,13 @@ import struct
 # Side-step ComfyUI_VNCCS/__init__.py PromptServer bootstrap side-effects by loading the utils
 # file directly. The original sibling package's __init__.py crashes if imported outside of a
 # running ComfyUI server context (PromptServer has no .instance attribute until startup).
-import importlib.util as _ilu
-_utils_spec = _ilu.spec_from_file_location(
-    "_vnccs_cc_edited_utils",
-    "/opt/ComfyUI/custom_nodes/ComfyUI_VNCCS/utils.py",
-)
-_utils_mod = _ilu.module_from_spec(_utils_spec) if _utils_spec is not None else None
-if _utils_mod is not None:
-    _utils_spec.loader.exec_module(_utils_mod)
-basename_agnostic = _utils_mod.basename_agnostic
-get_full_path_agnostic = _utils_mod.get_full_path_agnostic
-is_absolute_path_any_os = _utils_mod.is_absolute_path_any_os
-normalize_filesystem_path = _utils_mod.normalize_filesystem_path
-validate_privileged_request = _utils_mod.validate_privileged_request
+from ._vnccs_compat import load_utils
+_vnccs_utils_mod = load_utils()
+basename_agnostic = _vnccs_utils_mod.basename_agnostic
+get_full_path_agnostic = _vnccs_utils_mod.get_full_path_agnostic
+is_absolute_path_any_os = _vnccs_utils_mod.is_absolute_path_any_os
+normalize_filesystem_path = _vnccs_utils_mod.normalize_filesystem_path
+validate_privileged_request = _vnccs_utils_mod.validate_privileged_request
 
 
 class AnyType(str):
@@ -2044,6 +2038,37 @@ def _edited_download_worker_loop():
 if not getattr(_edited_download_worker_loop, "_started", False):
     threading.Thread(target=_edited_download_worker_loop, daemon=True).start()
     _edited_download_worker_loop._started = True
+
+@server.PromptServer.instance.routes.post("/vnccs/control_center/clothes_preview")
+async def cc_clothes_preview(request):
+    try:
+        data = await request.json()
+        repo_id = (data.get("repo_id") or "").strip()
+        node_state = data.get("node_state", "{}")
+        clothes_state = data.get("clothes_state", {})
+
+        if not repo_id:
+            return web.Response(status=400, text="Missing repo_id")
+
+        pipe = _build_control_center_pipe(repo_id, node_state)
+
+        from .clothes_designer_edited import ClothesDesigner
+
+        widget_data_str = json.dumps(clothes_state, sort_keys=True, separators=(",", ":"))
+        designer = ClothesDesigner()
+        ret = designer.process(pipe=pipe, widget_data=widget_data_str, unique_id="api_preview")
+        image_tensor = ret[0]
+
+        image_array = np.clip(255.0 * image_tensor.cpu().numpy().squeeze(), 0, 255).astype(np.uint8)
+        image_pil = Image.fromarray(image_array)
+        buffered = io.BytesIO()
+        image_pil.save(buffered, format="PNG")
+        b64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
+        return web.json_response({"image": b64})
+    except Exception as e:
+        traceback.print_exc()
+        return web.Response(status=500, text=str(e))
+
 
 NODE_CLASS_MAPPINGS = {
     "VNCCS_ControlCenter_Edited": VNCCS_ControlCenter,
