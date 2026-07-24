@@ -10,7 +10,7 @@ import numpy as np
 import traceback
 import re
 
-from ._vnccs_compat import load_utils, load_character_generator, load_vnccs_utils
+from ._vnccs_compat import load_utils, load_vnccs_utils, _call_comfy_node
 
 _vnccs_utils_mod = load_utils()
 character_dir = _vnccs_utils_mod.character_dir
@@ -22,9 +22,6 @@ sheets_dir = _vnccs_utils_mod.sheets_dir
 ensure_safe_name = _vnccs_utils_mod.ensure_safe_name
 safe_join_under = _vnccs_utils_mod.safe_join_under
 safe_relative_path = _vnccs_utils_mod.safe_relative_path
-
-_char_gen_mod = load_character_generator()
-_call_comfy_node = _char_gen_mod._call_comfy_node
 
 _vnccs_utils_node_mod = load_vnccs_utils()
 _ensure_qwen_vl_assets = _vnccs_utils_node_mod._ensure_qwen_vl_assets
