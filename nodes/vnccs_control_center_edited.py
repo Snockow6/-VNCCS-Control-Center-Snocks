@@ -1342,8 +1342,10 @@ def _build_control_center_pipe(repo_id, node_state, custom_model=None, custom_cl
             selected_clip_name = state["selected_models"].get("clip", "") or ""
         if selected_clip_name and any(e.get("name") == selected_clip_name for e in compatible_clips):
             all_clip_names = [selected_clip_name]
+        elif compatible_clips:
+            all_clip_names = [compatible_clips[0]["name"]]
         else:
-            all_clip_names = [entry["name"] for entry in compatible_clips]
+            all_clip_names = []
         first_vae_name = compatible_vaes[0]["name"] if compatible_vaes else ""
     model, clip, vae = _load_model_block(
         model_entry,
